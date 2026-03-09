@@ -11,7 +11,7 @@ Aplicação Angular que consome a [REST Countries API](https://restcountries.com
 ```bash
 # 1. Clone o repositório
 git clone <url-do-repositorio>
-cd DesafioTecnicoBclouder
+cd <pasta do projeto>
 
 # 2. Instale as dependências
 npm install
@@ -47,3 +47,4 @@ A navegação entre a Home e a página de detalhes é feita pelo Angular Router 
 - **Filtros extras** — Adicionaria filtros extras como por exemplo por línguas faladas. Já que a api fornece uma quantidade de dados consideráveis sobre cada país.
 - **Tratamento de erros mais robusto** — Centralizaria o tratamento de erros HTTP em um interceptor Angular, ao invés de tratar individualmente em cada componente.
 - **Modelo visual para países fronteiriços** — Tentaria criar um modelo visual do mapa real do país selecionado para visualizar seus detalhes e ao seu redor os países fronteiriços, trazendo uma interação mais interessante para o usuário.
+
