@@ -1,0 +1,94 @@
+<app-header></app-header>
+
+@if (country() != null) {
+  <main class="details-page">
+    <div class="details-container">
+      <section class="card-primary-info">
+        <img
+          class="flag"
+          [src]="country()?.flags?.svg"
+          [alt]="country()?.flags?.alt || country()?.name?.common + ' flag'"
+        />
+        <div class="hero-info">
+          <h2 class="country-name">{{ country()?.name?.common }}</h2>
+          <p class="official-name">{{ country()?.name?.official }}</p>
+
+          <div class="badges">
+            @if (country()?.unMember) {
+              <span class="badge badge-un">Membro da ONU</span>
+            }
+            @for (continent of country()?.continents; track continent) {
+              <span class="badge badge-continent">{{ continent }}</span>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="info-card">
+        <div class="info-container">
+          <span class="info-label">Population</span>
+          <span class="info-value">{{
+            formatNumber(country()?.population!)
+          }}</span>
+        </div>
+        <div class="info-container">
+          <span class="info-label">Capital</span>
+          <span class="info-value">{{ country()?.capital?.[0] ?? "N/A" }}</span>
+        </div>
+        <div class="info-container">
+          <span class="info-label">Region</span>
+          <span class="info-value">{{ country()?.region }}</span>
+        </div>
+        <div class="info-container">
+          <span class="info-label">Area</span>
+          <span class="info-value">{{ formatNumber(country()?.area!) }} km²</span>
+        </div>
+        <div class="info-container">
+          <span class="info-label">Currencies</span>
+          <span class="info-value">{{ getCurrencies() }}</span>
+        </div>
+
+        <div class="info-container">
+          <span class="info-label">View on Map</span>
+          <a
+            class="info-value map-link"
+            [href]="country()?.maps?.googleMaps"
+            target="_blank"
+            rel="noopener"
+            >Google Maps ↗</a
+          >
+        </div>
+        <div class="info-container">
+          <span class="info-label">Languages</span>
+          <span class="info-value">{{ getLanguages() }}</span>
+        </div>
+      </section>
+
+      @if (borderCountries().length) {
+        <section class="borders-section">
+          <h3>Bordering Countries</h3>
+          <div class="borders-list">
+            @for (border of borderCountries(); track border.name.common) {
+              <a
+                class="border-btn"
+                [routerLink]="['/country/', border.ccn3]"
+              >
+                <img
+                  class="border-flag"
+                  [src]="border.flags.svg"
+                  [alt]="border.name.common"
+                />
+                {{ border.name.common }}
+              </a>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  </main>
+} @else if (error()) {
+  <app-error-message
+   [message]="error()!"></app-error-message>
+}@else  {
+  <app-loading></app-loading>
+}
